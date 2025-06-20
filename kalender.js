@@ -167,7 +167,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         renderCalendar();
         modal.style.display = 'none';
-        alert('Konten berhasil disimpan! (Note: Perubahan tidak disimpan permanen ke file .json)');
+        alert('Konten berhasil disimpan! (Note: Hanya simulasi (demo), perubahan hanya disimpan sementara di cache memory)');
     }
 
     function deleteContent(postId) {

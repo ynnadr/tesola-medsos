@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalender Konten - Juli 2025</title>
+    <style>
+        /* === FONT & GLOBAL STYLES === */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+
+        :root {
+            --color-primary: #007BFF;
+            --color-secondary: #6c757d;
+            --color-bg: #f8f9fa;
+            --color-border: #dee2e6;
+            --color-text: #212529;
+            --color-white: #ffffff;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+            /* Platform Colors */
+            --color-instagram: #E1306C;
+            --color-tiktok: #000000;
+            --color-linkedin: #0A66C2;
+            --color-youtube: #FF0000;
+            --color-whatsapp: #25D366;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 1rem;
+        }
+
+        /* === KALENDER HEADER === */
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        #month-year {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--color-primary);
+        }
+
+        .nav-button {
+            background-color: var(--color-primary);
+            color: var(--color-white);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.2s;
+        }
+
+        .nav-button:hover {
+            background-color: #0056b3;
+        }
+        
+        /* === KALENDER GRID === */
+        .calendar-grid-header, .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+        }
+
+        .calendar-grid-header .day-name {
+            font-weight: 700;
+            text-align: center;
+            padding: 0.5rem;
+            background-color: #e9ecef;
+            border-radius: 5px;
+        }
+
+        .calendar-day {
+            background-color: var(--color-white);
+            border: 1px solid var(--color-border);
+            min-height: 150px;
+            padding: 0.5rem;
+            transition: box-shadow 0.2s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .calendar-day:hover {
+            box-shadow: var(--shadow);
+        }
+
+        .day-number {
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            text-align: right;
+            color: var(--color-secondary);
+        }
+
+        .calendar-day.padding-day {
+            background-color: #f1f3f5;
+        }
+
+        /* === KONTEN POST === */
+        .content-post {
+            background-color: #f8f9fa;
+            padding: 0.5rem;
+            margin-bottom: 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            border-left: 5px solid var(--color-secondary);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .content-post:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+        }
+
+        .post-platform {
+            font-weight: 700;
+            margin-bottom: 3px;
+        }
+        
+        /* Platform specific colors */
+        .content-post[data-platform="Instagram"] { border-left-color: var(--color-instagram); }
+        .content-post[data-platform="TikTok"] { border-left-color: var(--color-tiktok); }
+        .content-post[data-platform="LinkedIn"] { border-left-color: var(--color-linkedin); }
+        .content-post[data-platform="YouTube"] { border-left-color: var(--color-youtube); }
+        .content-post[data-platform="WhatsApp"] { border-left-color: var(--color-whatsapp); }
+        
+        .post-platform[data-platform="Instagram"] { color: var(--color-instagram); }
+        .post-platform[data-platform="TikTok"] { color: var(--color-tiktok); }
+        .post-platform[data-platform="LinkedIn"] { color: var(--color-linkedin); }
+        .post-platform[data-platform="YouTube"] { color: var(--color-youtube); }
+        .post-platform[data-platform="WhatsApp"] { color: var(--color-whatsapp); }
+
+        /* === MODAL (POP-UP) === */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.3s;
+        }
+
+        .modal-content {
+            background-color: var(--color-white);
+            margin: 10% auto;
+            padding: 2rem;
+            border-radius: 8px;
+            max-width: 600px;
+            width: 90%;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+            animation: slideIn 0.3s;
+        }
+        
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideIn { from { transform: translateY(-30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+        .close-button {
+            color: #aaa;
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close-button:hover,
+        .close-button:focus {
+            color: var(--color-text);
+        }
+
+        .modal-body h3 {
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        .modal-body .detail-item {
+            margin-bottom: 1rem;
+        }
+        .modal-body .detail-item strong {
+            display: block;
+            margin-bottom: 0.25rem;
+            color: var(--color-primary);
+        }
+        .modal-body .detail-item p {
+            background-color: #f8f9fa;
+            padding: 0.5rem;
+            border-radius: 4px;
+            white-space: pre-wrap; /* Preserve line breaks in hashtags */
+        }
+        
+        /* === RESPONSIVE DESIGN === */
+        @media (max-width: 768px) {
+            .container {
+                margin: 1rem auto;
+            }
+            #month-year {
+                font-size: 1.25rem;
+            }
+            .nav-button {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.9rem;
+            }
+            .calendar-grid-header {
+                display: none; /* Hide day names, as it's a list now */
+            }
+            .calendar-grid {
+                grid-template-columns: 1fr; /* Switch to single column */
+            }
+            .calendar-day {
+                min-height: auto;
+                margin-bottom: 5px;
+                flex-direction: row; /* Day number and content side-by-side */
+                align-items: flex-start;
+                padding: 0.75rem;
+            }
+            .day-number {
+                text-align: left;
+                margin-bottom: 0;
+                margin-right: 1rem;
+                font-size: 1.2rem;
+                color: var(--color-primary);
+                min-width: 40px;
+            }
+            .day-content-wrapper {
+                flex-grow: 1;
+            }
+            .padding-day {
+                display: none; /* Hide empty days on mobile */
+            }
+            .modal-content {
+                margin: 5% auto;
+                width: 95%;
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="calendar-header">
+            <button id="prev-month" class="nav-button">< Sebelumnya</button>
+            <h2 id="month-year"></h2>
+            <button id="next-month" class="nav-button">Berikutnya ></button>
+        </div>
+        
+        <div class="calendar-grid-header">
+            <div class="day-name">Min</div>
+            <div class="day-name">Sen</div>
+            <div class="day-name">Sel</div>
+            <div class="day-name">Rab</div>
+            <div class="day-name">Kam</div>
+            <div class="day-name">Jum</div>
+            <div class="day-name">Sab</div>
+        </div>
+
+        <div class="calendar-grid" id="calendar-grid">
+            <!-- Hari-hari kalender akan di-generate oleh JavaScript -->
+        </div>
+    </div>
+
+    <!-- Modal Structure -->
+    <div id="content-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">×</span>
+            <div class="modal-body" id="modal-body">
+                <!-- Detail konten akan di-generate oleh JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        
+        // --- DATA KONTEN ---
+        // Data sudah diubah ke bulan Juli 2025 dan diterjemahkan
+        const contentData = [
+            {
+                id: 1, platform: 'Instagram', type: 'Carousel', date: '2025-07-02', time: '19:00',
+                idea: "Tampilkan 3 tes populer (Dasar Pemasaran Digital, Kepemimpinan, dll).",
+                caption: "Mau bukti kamu capable? Ambil tes singkat di tesola.id dan dapet sertifikat langsung! 🚀",
+                visual: "Slide cerah berwarna dengan ikon (stopwatch, sertifikat). Sertakan screenshot sertifikat dengan estetika Gen Z.",
+                cta: "Ikuti tesnya sekarang di tesola.id! Link di bio.",
+                hashtags: "#TesolaID #SertifikatMudah #BelajarSingkat #KerenCapable #Edutainment"
+            },
+            {
+                id: 2, platform: 'Instagram', type: 'Reels', date: '2025-07-04', time: '20:00',
+                idea: "Video 30 detik: Profesional muda bercerita 'Sertifikat dalam hitungan menit? Bisa banget! 😎'",
+                caption: "Sertifikat dalam hitungan menit? Bisa banget! 😎",
+                visual: "Transisi kekinian, musik upbeat. Teks overlay: '10 Menit', 'Kuis Seru', 'Sertifikat Instan'.",
+                cta: "Coba sekarang! Link di bio.",
+                hashtags: "#TesolaID #SertifikatCepat #BelajarAsyik #GenZCareer"
+            },
+            {
+                id: 3, platform: 'TikTok', type: 'Video', date: '2025-07-06', time: '18:30',
+                idea: "Skit 45 detik: Dua teman berdebat siapa lebih 'capable', lalu pamer sertifikat Tesola.",
+                caption: "Buktikan kamu capable dengan tesola.id! 🎉",
+                visual: "Gunakan sound TikTok yang tren. Efek konfeti saat sertifikat muncul.",
+                cta: "Ikutan seru-seruan di tesola.id! Link di bio.",
+                hashtags: "#TesolaID #SertifikatKeren #BelajarSingkat #CapableBanget"
+            },
+            {
+                id: 4, platform: 'LinkedIn', type: 'Post', date: '2025-07-08', time: '09:00',
+                idea: "Post teks: Berdayakan startup/UMKM dengan talenta tersertifikasi dari Tesola.",
+                caption: "Berdayakan startup atau UMKM Anda dengan talenta terampil. Tesola.id menawarkan tes cepat dan menarik untuk sertifikasi kemampuan. Sempurna untuk portofolio profesional muda.",
+                visual: "Gambar profesional: Sertifikat di sebelah laptop, dengan tim yang berkolaborasi di latar belakang.",
+                cta: "Jelajahi tes kami di tesola.id.",
+                hashtags: "#ProfessionalDevelopment #Sertifikat #StartupIndonesia #SMEIndonesia"
+            },
+            {
+                id: 5, platform: 'Instagram', type: 'Stories', date: '2025-07-10', time: '17:00',
+                idea: "Polling: 'Skill apa yang mau kamu sertifikasi?'",
+                caption: "Tes singkat, sertifikat langsung! 😍",
+                visual: "Stiker Polling animasi dengan grafis doodle. Diikuti klip contoh soal tes.",
+                cta: "Swipe up untuk ikutan tes!",
+                hashtags: "N/A"
+            },
+            {
+                id: 6, platform: 'TikTok', type: 'Video', date: '2025-07-12', time: '19:00',
+                idea: "Video 60 detik: 'Day in the life' pencari kerja Gen Z yang pakai sertifikat Tesola di CV.",
+                caption: "Sertifikat bikin CV glowing! ✨",
+                visual: "Gaya vlog + efek TikTok. Teks: 'Cepat', 'Seru', 'Tersertifikasi'.",
+                cta: "Dapatkan sertifikatmu di tesola.id! Link di bio.",
+                hashtags: "#TesolaID #SertifikatCepat #CVGlowing #GenZIndonesia"
+            },
+            {
+                id: 7, platform: 'Instagram', type: 'Reels', date: '2025-07-14', time: '20:00',
+                idea: "Video 30 detik: Split-screen 'Kuliah Membosankan vs Kuis Seru Tesola'.",
+                caption: "Bosan belajar lama? Coba tesola.id! 😎",
+                visual: "Format split-screen, sisi kuliah abu-abu, sisi Tesola berwarna cerah. Musik upbeat.",
+                cta: "Ikuti tesnya sekarang! Link di bio.",
+                hashtags: "#TesolaID #BelajarSingkat #SertifikatMudah #Edutainment"
+            },
+            {
+                id: 8, platform: 'YouTube', type: 'Video', date: '2025-07-16', time: '10:00',
+                idea: "Tutorial 3 menit: 'Cara Mendapatkan Sertifikat dengan Tesola.id'.",
+                caption: "Mau sertifikat cepat? Ikuti langkah ini! 🚀",
+                visual: "Screen recording website dengan voiceover yang ramah dan energik. Sertakan subtitle Bahasa Indonesia.",
+                cta: "Kunjungi tesola.id untuk memulai.",
+                hashtags: "#TesolaID #SertifikatOnline #BelajarMudah #CareerGrowth"
+            },
+            {
+                id: 9, platform: 'WhatsApp', type: 'Status', date: '2025-07-18', time: '16:00',
+                idea: "Gambar post: 'Buktikan kemampuanmu dengan tesola.id! Tes singkat, sertifikat langsung.'",
+                caption: "Buktikan kemampuanmu dengan tesola.id! Tes singkat, sertifikat langsung. Cocok untuk anak muda dan UMKM.",
+                visual: "Grafis simpel: Contoh sertifikat dengan teks overlay 'Tes 10 Menit, Sertifikat Keren'.",
+                cta: "Chat kami untuk info lebih lanjut!",
+                hashtags: "N/A"
+            },
+            {
+                id: 10, platform: 'Instagram', type: 'Carousel', date: '2025-07-20', time: '19:00',
+                idea: "Carousel testimoni dari 3 pengguna yang puas.",
+                caption: "Mereka sudah capable, kamu kapan? 😍",
+                visual: "Foto pengguna yang tersenyum dengan kutipan testimoni di-overlay. Tampilkan juga sertifikatnya.",
+                cta: "Dapatkan sertifikat di tesola.id! Link di bio.",
+                hashtags: "#TesolaID #SertifikatKeren #Testimoni #Capable"
+            },
+            {
+                id: 11, platform: 'TikTok', type: 'Video', date: '2025-07-22', time: '18:30',
+                idea: "Video 45 detik: Kreator mengambil tes acak secara 'live' dan bereaksi terhadap hasilnya.",
+                caption: "Tes apa yang cocok buat kamu? Coba sekarang! 🎉",
+                visual: "Gaya 'live reaction' dengan jump cut. Tunjukkan wajah gembira saat sertifikat muncul.",
+                cta: "Coba di tesola.id! Link di bio.",
+                hashtags: "#TesolaID #SertifikatCepat #TesSeru #GenZ"
+            },
+            {
+                id: 12, platform: 'LinkedIn', type: 'Post', date: '2025-07-24', time: '09:00',
+                idea: "Post teks: Tesola mendukung talenta muda & UMKM Indonesia dengan sertifikasi cepat.",
+                caption: "Tesola.id mendukung talenta muda dan UMKM Indonesia dengan tes sertifikasi yang cepat dan seru. Dari skill digital hingga kepemimpinan, sertifikasi kemampuanmu hari ini.",
+                visual: "Gambar profesional: Sertifikat di atas meja dengan tim startup di kantor modern.",
+                cta: "Temukan lebih lanjut di tesola.id.",
+                hashtags: "#ProfessionalDevelopment #Sertifikat #UMKMIndonesia #StartupGrowth"
+            },
+            {
+                id: 13, platform: 'Instagram', type: 'Stories', date: '2025-07-26', time: '17:00',
+                idea: "Kuis: 'Tebak jawaban soal ini!' dan ungkap jawabannya di story berikutnya.",
+                caption: "Tes seru, sertifikat keren! 😎",
+                visual: "Stiker Kuis animasi. Jawaban diungkap dengan efek konfeti.",
+                cta: "Swipe up untuk ikutan tes!",
+                hashtags: "N/A"
+            },
+            {
+                id: 14, platform: 'TikTok', type: 'Video', date: '2025-07-28', time: '19:00',
+                idea: "Video 60 detik: Akting 'Kursus Membosankan vs. Tesola yang Seru'.",
+                caption: "Belajar singkat, dapet sertifikat? Ya di tesola.id! ✨",
+                visual: "Akting split-scene dengan musik dramatis untuk kursus bosan & musik upbeat untuk Tesola.",
+                cta: "Dapatkan sertifikat di tesola.id! Link di bio.",
+                hashtags: "#TesolaID #SertifikatMudah #BelajarAsyik #Edutainment"
+            },
+            {
+                id: 15, platform: 'Instagram', type: 'Reels', date: '2025-07-30', time: '20:00',
+                idea: "Montage 30 detik: Profesional muda menambahkan sertifikat Tesola ke CV, LinkedIn, dll.",
+                caption: "Sertifikat bikin kamu stand out! 🚀",
+                visual: "Montage cepat dengan musik upbeat. Tampilkan screenshot CV, profil LinkedIn, dan close-up sertifikat.",
+                cta: "Ikuti tesnya sekarang! Link di bio.",
+                hashtags: "#TesolaID #SertifikatKeren #CareerBoost #GenZCareer"
+            }
+        ];
+
+        // --- ELEMEN DOM ---
+        const calendarGrid = document.getElementById('calendar-grid');
+        const monthYearEl = document.getElementById('month-year');
+        const prevMonthBtn = document.getElementById('prev-month');
+        const nextMonthBtn = document.getElementById('next-month');
+        const modal = document.getElementById('content-modal');
+        const modalBody = document.getElementById('modal-body');
+        const closeBtn = document.querySelector('.close-button');
+
+        let currentDate = new Date(2025, 6, 1); // Juli 2025 (bulan dimulai dari 0)
+
+        // --- FUNGSI UTAMA ---
+        function renderCalendar() {
+            calendarGrid.innerHTML = '';
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth();
+
+            const firstDayOfMonth = new Date(year, month, 1).getDay(); // 0=Minggu, 1=Senin..
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+            monthYearEl.textContent = `${new Date(year, month).toLocaleString('id-ID', { month: 'long', year: 'numeric' })}`;
+
+            // Buat padding days (hari kosong sebelum tanggal 1)
+            for (let i = 0; i < firstDayOfMonth; i++) {
+                const paddingDay = document.createElement('div');
+                paddingDay.classList.add('calendar-day', 'padding-day');
+                calendarGrid.appendChild(paddingDay);
+            }
+
+            // Buat hari-hari dalam sebulan
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dayEl = document.createElement('div');
+                dayEl.classList.add('calendar-day');
+
+                const dayNumberEl = document.createElement('div');
+                dayNumberEl.classList.add('day-number');
+                dayNumberEl.textContent = day;
+                
+                const contentWrapper = document.createElement('div');
+                contentWrapper.classList.add('day-content-wrapper');
+
+                // Cari konten untuk hari ini
+                const dateString = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                const postsForDay = contentData.filter(post => post.date === dateString);
+
+                postsForDay.forEach(post => {
+                    const postEl = document.createElement('div');
+                    postEl.classList.add('content-post');
+                    postEl.setAttribute('data-platform', post.platform);
+                    postEl.setAttribute('data-id', post.id);
+                    
+                    postEl.innerHTML = `
+                        <div class="post-platform" data-platform="${post.platform}">${post.platform} ${post.type}</div>
+                        <div>${post.time} - ${post.idea}</div>
+                    `;
+
+                    postEl.addEventListener('click', () => showModal(post.id));
+                    contentWrapper.appendChild(postEl);
+                });
+                
+                dayEl.appendChild(dayNumberEl);
+                dayEl.appendChild(contentWrapper);
+                calendarGrid.appendChild(dayEl);
+            }
+        }
+
+        function showModal(postId) {
+            const post = contentData.find(p => p.id === postId);
+            if (!post) return;
+            
+            modalBody.innerHTML = `
+                <h3>${post.platform} ${post.type} - ${new Date(post.date).toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long' })} ${post.time}</h3>
+                <div class="detail-item"><strong>Ide Konten:</strong><p>${post.idea}</p></div>
+                <div class="detail-item"><strong>Caption:</strong><p>${post.caption}</p></div>
+                <div class="detail-item"><strong>Visual:</strong><p>${post.visual}</p></div>
+                <div class="detail-item"><strong>Call-to-Action (CTA):</strong><p>${post.cta}</p></div>
+                <div class="detail-item"><strong>Hashtag:</strong><p>${post.hashtags}</p></div>
+            `;
+            modal.style.display = 'block';
+        }
+
+        // --- EVENT LISTENERS ---
+        prevMonthBtn.addEventListener('click', () => {
+            currentDate.setMonth(currentDate.getMonth() - 1);
+            renderCalendar();
+        });
+
+        nextMonthBtn.addEventListener('click', () => {
+            currentDate.setMonth(currentDate.getMonth() + 1);
+            renderCalendar();
+        });
+
+        closeBtn.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        window.addEventListener('click', (event) => {
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        // Initial render
+        renderCalendar();
+    });
+    </script>
+
+</body>
+</html>

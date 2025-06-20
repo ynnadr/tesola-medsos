@@ -1,0 +1,62 @@
+[
+    {
+        "id": 1,
+        "platform": "Instagram",
+        "type": "Carousel",
+        "date": "2025-07-02",
+        "time": "19:00",
+        "idea": "Tampilkan 3 tes populer (Dasar Pemasaran Digital, Kepemimpinan, dll).",
+        "caption": "Mau bukti kamu capable? Ambil tes singkat di tesola.id dan dapet sertifikat langsung! 🚀",
+        "visual": "Slide cerah berwarna dengan ikon (stopwatch, sertifikat). Sertakan screenshot sertifikat dengan estetika Gen Z.",
+        "cta": "Ikuti tesnya sekarang di tesola.id! Link di bio.",
+        "hashtags": "#TesolaID #SertifikatMudah #BelajarSingkat #KerenCapable #Edutainment"
+    },
+    {
+        "id": 2,
+        "platform": "Instagram",
+        "type": "Reels",
+        "date": "2025-07-04",
+        "time": "20:00",
+        "idea": "Video 30 detik: Profesional muda bercerita 'Sertifikat dalam hitungan menit? Bisa banget! 😎'",
+        "caption": "Sertifikat dalam hitungan menit? Bisa banget! 😎",
+        "visual": "Transisi kekinian, musik upbeat. Teks overlay: '10 Menit', 'Kuis Seru', 'Sertifikat Instan'.",
+        "cta": "Coba sekarang! Link di bio.",
+        "hashtags": "#TesolaID #SertifikatCepat #BelajarAsyik #GenZCareer"
+    },
+    {
+        "id": 3,
+        "platform": "TikTok",
+        "type": "Video",
+        "date": "2025-07-06",
+        "time": "18:30",
+        "idea": "Skit 45 detik: Dua teman berdebat siapa lebih 'capable', lalu pamer sertifikat Tesola.",
+        "caption": "Buktikan kamu capable dengan tesola.id! 🎉",
+        "visual": "Gunakan sound TikTok yang tren. Efek konfeti saat sertifikat muncul.",
+        "cta": "Ikutan seru-seruan di tesola.id! Link di bio.",
+        "hashtags": "#TesolaID #SertifikatKeren #BelajarSingkat #CapableBanget"
+    },
+    {
+        "id": 4,
+        "platform": "LinkedIn",
+        "type": "Post",
+        "date": "2025-07-08",
+        "time": "09:00",
+        "idea": "Post teks: Berdayakan startup/UMKM dengan talenta tersertifikasi dari Tesola.",
+        "caption": "Berdayakan startup atau UMKM Anda dengan talenta terampil. Tesola.id menawarkan tes cepat dan menarik untuk sertifikasi kemampuan. Sempurna untuk portofolio profesional muda.",
+        "visual": "Gambar profesional: Sertifikat di sebelah laptop, dengan tim yang berkolaborasi di latar belakang.",
+        "cta": "Jelajahi tes kami di tesola.id.",
+        "hashtags": "#ProfessionalDevelopment #Sertifikat #StartupIndonesia #SMEIndonesia"
+    },
+    {
+        "id": 15,
+        "platform": "Instagram",
+        "type": "Reels",
+        "date": "2025-07-30",
+        "time": "20:00",
+        "idea": "Montage 30 detik: Profesional muda menambahkan sertifikat Tesola ke CV, LinkedIn, dll.",
+        "caption": "Sertifikat bikin kamu stand out! 🚀",
+        "visual": "Montage cepat dengan musik upbeat. Tampilkan screenshot CV, profil LinkedIn, dan close-up sertifikat.",
+        "cta": "Ikuti tesnya sekarang! Link di bio.",
+        "hashtags": "#TesolaID #SertifikatKeren #CareerBoost #GenZCareer"
+    }
+]
